@@ -1,0 +1,72 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Projects\\MyNotes\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|c:\\projects\\mynotes\\mynotes\\models\\notesmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|solutionrelative:mynotes\\models\\notesmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|c:\\projects\\mynotes\\mynotes\\controllers\\notescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|solutionrelative:mynotes\\controllers\\notescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NotesModel.cs",
+              "DocumentMoniker": "C:\\Projects\\MyNotes\\MyNotes\\Models\\NotesModel.cs",
+              "RelativeDocumentMoniker": "MyNotes\\Models\\NotesModel.cs",
+              "ToolTip": "C:\\Projects\\MyNotes\\MyNotes\\Models\\NotesModel.cs",
+              "RelativeToolTip": "MyNotes\\Models\\NotesModel.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAjwD0AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-02T00:15:09.89Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NotesController.cs",
+              "DocumentMoniker": "C:\\Projects\\MyNotes\\MyNotes\\Controllers\\NotesController.cs",
+              "RelativeDocumentMoniker": "MyNotes\\Controllers\\NotesController.cs",
+              "ToolTip": "C:\\Projects\\MyNotes\\MyNotes\\Controllers\\NotesController.cs",
+              "RelativeToolTip": "MyNotes\\Controllers\\NotesController.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAowEYAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-25T08:29:02.9Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

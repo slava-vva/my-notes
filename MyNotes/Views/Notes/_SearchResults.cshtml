@@ -1,0 +1,53 @@
+﻿@using System.Text.RegularExpressions
+@model List<Note>
+
+@if (Model.Any())
+{
+    <div>
+
+        @foreach (var note in Model)
+        {
+            <div class="row">
+                <hr />
+                <h4>@note.Name <small class="my-col-footer"><a asp-action="Edit" asp-route-id="@note.Id">Edit</a></small></h4>
+                <pre>@note.Description</pre><br />
+                @if (note.links != null && note.links.Length > 0)
+                {
+                    <div class="mb-3">
+                        @Html.Raw(
+                        Regex.Replace(
+                        note.links!.Replace("\n", "<br />"),
+                        @"(http[s]?://[^\s<>]+)",
+                        "<a href=\"$1\" target=\"_blank\">$1</a>"
+                        ))
+                    </div>
+                }
+                else
+                {
+                    <div class="mb-3">
+                        <strong>No links available</strong>
+                    </div>
+                }
+
+                <div class="col-1 my-col-footer">
+                    <a asp-action="Edit" asp-route-id="@note.Id">Edit</a>
+                </div>
+                <div class="col-1 my-col-footer">
+                    <a asp-action="Delete" asp-route-id="@note.Id">Delete</a>
+                </div>
+                <div class="col-4 my-col-footer">
+                    @note.CreatedDate.ToString("dd-MM-yyyy HH:mm:ss")
+                </div>
+                <div class="col-4 my-col-footer">
+                    @note.UpdatedDate.ToString("dd-MM-yyyy HH:mm:ss")
+                </div>
+
+            </div>
+        }
+
+    </div>
+}
+else
+{
+    <p>No results found.</p>
+}
