@@ -6,5 +6,7 @@
 /MyNotes/NotesDB.db-wal
 /MyNotes/bin/
 
+/.vs
+
 **/bin/
 **/obj/
