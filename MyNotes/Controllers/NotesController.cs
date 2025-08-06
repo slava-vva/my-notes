@@ -21,7 +21,9 @@ namespace MyNotes.Controllers
         // GET: NoteModels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Notes.ToListAsync());
+            var model = new NotesModel(_context);
+            model.GetNotes();
+            return View("List", model);
         }
 
         // GET: NoteModels/Details/5

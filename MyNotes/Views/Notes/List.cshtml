@@ -23,13 +23,19 @@
         <div class="col-3">
             <form asp-action="Search" id="searchForm">
                 <input asp-for="SearchTerm" class="form-control" id="searchInput" />
-                @* <div class="form-group">
+                @*<div class="form-group">
                     <input type="submit" value="Search" class="btn btn-primary" />
-                </div> *@
+                </div>*@
             </form>
         </div>
-        <div />
-        <hr />
+        <div class="col-1">
+
+        </div>
+        <div class="col-3">
+            <h3>Results</h3>
+            
+        </div>
+        <hr style="margin-top:1rem" />
         <div class="container mt-4">
             <div class="row">
                 <div class="col-md-4">
@@ -75,13 +81,13 @@
                     </form>
                 </div>
                 <div class="col-md-7 my-col-res">
-                    <h3>Results</h3>
                     <div id="searchResults">
                         <partial name="_SearchResults" model="Model.Notes" />
 
                     </div>
                 </div>
             </div>
+
         </div>
 
         @section Scripts {

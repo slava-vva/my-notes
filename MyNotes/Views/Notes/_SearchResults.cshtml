@@ -8,7 +8,7 @@
         @foreach (var note in Model)
         {
             <div class="row">
-                <hr />
+                
                 <h4>@note.Name <small class="my-col-footer"><a asp-action="Edit" asp-route-id="@note.Id">Edit</a></small></h4>
                 <pre>@note.Description</pre><br />
                 @if (note.links != null && note.links.Length > 0)
@@ -41,7 +41,7 @@
                 <div class="col-4 my-col-footer">
                     @note.UpdatedDate.ToString("dd-MM-yyyy HH:mm:ss")
                 </div>
-
+                <hr />
             </div>
         }
 
