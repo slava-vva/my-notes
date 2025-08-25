@@ -63,6 +63,7 @@ namespace MyNotes.Controllers
         }
 
         [HttpPost]
+	// Extended search
         public IActionResult Search(string searchTerm)
         {
             var model = new NotesModel(_context);
