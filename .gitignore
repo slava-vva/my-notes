@@ -2,8 +2,6 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/MyNotes/NotesDB.db-shm
-/MyNotes/NotesDB.db-wal
 /MyNotes/bin/
 /MyNotes/obj/
 
