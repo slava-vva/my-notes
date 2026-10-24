@@ -1,153 +1,203 @@
 ﻿@model MyNotes.Models.NotesModel
-
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-
-    DateTime currentDate = DateTime.Now;
-    string formattedDate = currentDate.ToString("dd-MM-yyyy HH:mm:ss");
-
+    ViewData["Title"] = "Notes";
+    var nameError = ViewData.ModelState["Name"]?.Errors.FirstOrDefault()?.ErrorMessage;
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
-    <div class="row">
-        <div class="col-1">
-            <h4>Notes</h4>
-        </div>
-        <div class="col-3">
-            <form asp-action="Search" id="searchForm">
-                <input asp-for="SearchTerm" class="form-control" id="searchInput" />
-                @*<div class="form-group">
-                    <input type="submit" value="Search" class="btn btn-primary" />
-                </div>*@
-            </form>
-        </div>
-        <div class="col-1">
-
-        </div>
-        <div class="col-3">
-            <h3>Results</h3>
-            
-        </div>
-        <hr style="margin-top:1rem" />
-        <div class="container mt-4">
-            <div class="row">
-                <div class="col-md-4">
-                    <form asp-action="Create">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group">
-                            <label>@formattedDate</label><br />
-                            <label asp-for="InputNote.Name" class="control-label"></label>
-                            <input asp-for="InputNote.Name" name="Name" class="form-control" />
-                            <span data-valmsg-for="Name" class="text-danger" data-valmsg-replace="true"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="InputNote.Description" class="control-label"></label>
-                            <textarea asp-for="InputNote.Description" name="Description" class="form-control my-text-desription"></textarea>
-                            <span data-valmsg-for="Description" class="text-danger" data-valmsg-replace="true"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="InputNote.links" class="control-label"></label>
-                            <textarea asp-for="InputNote.links" name="links" class="form-control my-text-links"></textarea>
-                            <span data-valmsg-for="links" class="text-danger" data-valmsg-replace="true"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="InputNote.Tags" class="control-label"></label>
-                            <input asp-for="InputNote.Tags" name="Tags" class="form-control" />
-                            <span data-valmsg-for="Tags" class="text-danger" data-valmsg-replace="true"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="InputNote.CreatedDate" class="control-label"></label><br />
-                            <label>@formattedDate</label><br />
-
-                            @* <input asp-for="InputNote.CreatedDate" name="CreatedDate" value="@currentDate" text="@currentDate" class="form-control" /> *@
-                            @* <span asp-validation-for="InputNote.CreatedDate" class="text-danger"></span> *@
-                            <span data-valmsg-for="CreatedDate" class="text-danger" data-valmsg-replace="true"></span>
-                        </div>
-                        @* <div class="form-group" hidden>
-                            <label asp-for="InputNote.UpdatedDate" class="control-label"></label>
-                            <input asp-for="InputNote.UpdatedDate" name="UpdatedDate" class="form-control" />
-                            <span data-valmsg-for="UpdatedDate" class="text-danger" data-valmsg-replace="true"></span>
-                        </div> *@
-                        <div class="form-group">
-                            <input type="submit" value="Create" class="btn btn-primary" />
-                        </div>
-                    </form>
+<div class="row g-4">
+    <!-- New note -->
+    <div class="col-lg-4">
+        <div class="card shadow-sm notes-sticky">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-baseline mb-3">
+                    <h4 class="card-title mb-0">New note</h4>
+                    <small class="text-body-secondary">@DateTime.Now.ToString("dd-MM-yyyy HH:mm")</small>
                 </div>
-                <div class="col-md-7 my-col-res">
-                    <div id="searchResults">
-                        <partial name="_SearchResults" model="Model.Notes" />
-
+                <form asp-action="Create" method="post" id="createForm" class="js-ctrl-enter" autocomplete="off">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="mb-3">
+                        <label asp-for="InputNote.Name" class="form-label"></label>
+                        <input asp-for="InputNote.Name" name="Name" class="form-control @(nameError != null ? "is-invalid" : "")" placeholder="What is this note about?" />
+                        @if (nameError != null)
+                        {
+                            <div class="invalid-feedback">@nameError</div>
+                        }
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label asp-for="InputNote.Description" class="form-label"></label>
+                        <textarea asp-for="InputNote.Description" name="Description" class="form-control my-text-desription" rows="6"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="InputNote.links" class="form-label"></label>
+                        <textarea asp-for="InputNote.links" name="links" class="form-control my-text-links" rows="3" placeholder="One link per line"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="InputNote.Tags" class="form-label"></label>
+                        <input asp-for="InputNote.Tags" name="Tags" class="form-control" placeholder="comma, separated, tags" />
+                        <div class="form-text">Suggested from the topic until you type your own.</div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        <small class="text-body-secondary">or Ctrl+Enter</small>
+                    </div>
+                </form>
             </div>
-
         </div>
+    </div>
 
-        @section Scripts {
-            @{
-                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    <!-- Search + results -->
+    <div class="col-lg-8">
+        <form asp-action="Search" method="post" id="searchForm" class="mb-3" autocomplete="off">
+            <div class="input-group">
+                <span class="input-group-text" aria-hidden="true">&#128269;</span>
+                <input asp-for="SearchTerm" id="searchInput" class="form-control" placeholder="Search topics, text, links and tags... (Esc to clear)" />
+                <button type="button" class="btn btn-outline-secondary" id="clearSearch" title="Clear search">&times;</button>
+            </div>
+        </form>
+        <div id="searchResults" aria-live="polite">
+            <partial name="_SearchResults" model="Model" />
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        (function () {
+            // ---- Live search: waits until you pause typing and ignores out-of-date responses ----
+            const form = document.getElementById('searchForm');
+            const input = document.getElementById('searchInput');
+            const clear = document.getElementById('clearSearch');
+            const results = document.getElementById('searchResults');
+            let timer = null;
+            let controller = null;
+            let searchVersion = 0;   // bumps on every new search so a late "Show more" can't append to new results
+
+            function runSearch() {
+                clearTimeout(timer);
+                searchVersion++;
+                if (controller) controller.abort();
+                const current = new AbortController();
+                controller = current;
+                results.classList.add('is-loading');
+
+                fetch(form.action, { method: 'POST', body: new FormData(form), signal: current.signal })
+                    .then(response => {
+                        if (!response.ok) throw new Error('HTTP ' + response.status);
+                        return response.text();
+                    })
+                    .then(html => { results.innerHTML = html; })
+                    .catch(error => {
+                        if (error.name !== 'AbortError') console.error('Search failed:', error);
+                    })
+                    .finally(() => {
+                        if (controller === current) results.classList.remove('is-loading');
+                    });
             }
 
-            <script>
-                document.getElementById('searchInput').addEventListener('input', function () {
-                    const form = document.getElementById('searchForm');
-                    const formData = new FormData(form);
+            input.addEventListener('input', () => {
+                clearTimeout(timer);
+                timer = setTimeout(runSearch, 250);
+            });
 
-                    fetch(form.action, {
-                        method: 'POST',
-                        body: formData,
+            input.addEventListener('keydown', e => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    runSearch();
+                } else if (e.key === 'Escape') {
+                    input.value = '';
+                    runSearch();
+                }
+            });
+
+            form.addEventListener('submit', e => { e.preventDefault(); runSearch(); });
+
+            clear.addEventListener('click', () => {
+                input.value = '';
+                runSearch();
+                input.focus();
+            });
+
+            // "Show more": load the next 20 notes for the same search and append them
+            function loadMore(button) {
+                const version = searchVersion;
+                const wrap = button.closest('.js-show-more-wrap');
+                const label = button.textContent;
+                button.disabled = true;
+                button.textContent = 'Loading...';
+
+                const data = new FormData(form);
+                data.set('SearchTerm', button.dataset.term || '');
+                data.set('skip', button.dataset.skip);
+
+                fetch(form.action, { method: 'POST', body: data })
+                    .then(response => {
+                        if (!response.ok) throw new Error('HTTP ' + response.status);
+                        return response.text();
                     })
-                    .then(response => response.text())
                     .then(html => {
-                        document.getElementById('searchResults').innerHTML = html;
+                        if (version !== searchVersion) return;   // a newer search replaced the list
+                        wrap.insertAdjacentHTML('afterend', html);
+                        wrap.remove();
                     })
                     .catch(error => {
-                        console.error('Error during AJAX search:', error);
+                        console.error('Show more failed:', error);
+                        button.disabled = false;
+                        button.textContent = label;
                     });
-                });
-            </script>
+            }
 
-            <script>
-                window.onload = function () {
-                    // const urlParams = new URLSearchParams(window.location.search);
-                    // if (urlParams.get('focus') === 'true') {
-                        document.getElementById('searchInput').focus();
-                    //}
-                };
-            </script>
+            results.addEventListener('click', e => {
+                const more = e.target.closest('.js-show-more');
+                if (more) {
+                    e.preventDefault();
+                    loadMore(more);
+                    return;
+                }
 
-            @* <script>
+                // Clicking a tag searches for it
+                const tag = e.target.closest('[data-tag]');
+                if (!tag) return;
+                e.preventDefault();
+                input.value = tag.dataset.tag;
+                runSearch();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
 
-                document.getElementById('searchInput').addEventListener('change', function () {
-                    document.getElementById('searchForm').submit();
-                });
-            </script> *@
+            // ---- Tag suggestions from the topic, until you edit the tags yourself ----
+            const nameInput = document.getElementById('InputNote_Name');
+            const tagsInput = document.getElementById('InputNote_Tags');
+            let tagsTouched = tagsInput.value.trim() !== '';
 
-            <script>
-                document.getElementById('InputNote_Name').addEventListener('input', function () {
-                    const topic = this.value.trim().toLowerCase();
-                    let tags = '';
+            tagsInput.addEventListener('input', () => {
+                tagsTouched = tagsInput.value.trim() !== '';
+            });
 
-                    if (topic.includes('asp.net')) {
-                        tags = 'asp.net, razor, mvc';
-                    } else if (topic.includes('react')) {
-                        tags = 'react, javascript, frontend';
-                    } else if (topic.includes('django')) {
-                        tags = 'django, python, backend';
-                    } else {
-                        tags = topic.split(' ').join(', ');
-                    }
+            nameInput.addEventListener('input', () => {
+                if (tagsTouched) return;
+                const topic = nameInput.value.trim().toLowerCase();
+                let tags;
+                if (topic.includes('asp.net')) {
+                    tags = 'asp.net, razor, mvc';
+                } else if (topic.includes('react')) {
+                    tags = 'react, javascript, frontend';
+                } else if (topic.includes('django')) {
+                    tags = 'django, python, backend';
+                } else {
+                    tags = topic.split(/\s+/).filter(Boolean).join(', ');
+                }
+                tagsInput.value = tags;
+            });
 
-                    document.getElementById('InputNote_Tags').value = tags;
-                });
-            </script>
-        }
-</body>
-</html>
+            // Focus: the topic field if it has an error, otherwise the search box
+            if (nameInput.classList.contains('is-invalid')) {
+                nameInput.focus();
+            } else {
+                input.focus();
+            }
+        })();
+    </script>
+}

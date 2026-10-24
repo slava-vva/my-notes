@@ -74,8 +74,7 @@
               "RelativeToolTip": "MyNotes\\wwwroot\\css\\site.css",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-10-21T00:27:36.116Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-21T00:27:36.116Z"
             },
             {
               "$type": "Document",
@@ -85,7 +84,7 @@
               "RelativeDocumentMoniker": "MyNotes\\wwwroot\\styles.css",
               "ToolTip": "C:\\Projects\\MyNotes\\MyNotes\\wwwroot\\styles.css",
               "RelativeToolTip": "MyNotes\\wwwroot\\styles.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2026-10-21T00:21:28.875Z",
               "EditorCaption": ""
@@ -100,8 +99,7 @@
               "RelativeToolTip": "MyNotes\\Views\\Notes\\Edit.cshtml",
               "ViewState": "AgIAABUAAAAAAAAAAAAAACIAAABvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-10-21T00:20:07.032Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-21T00:20:07.032Z"
             },
             {
               "$type": "Document",
@@ -113,8 +111,7 @@
               "RelativeToolTip": "MyNotes\\Models\\NotesModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-20T23:47:43.39Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-20T23:47:43.39Z"
             },
             {
               "$type": "Document",
@@ -138,12 +135,7 @@
               "RelativeToolTip": "MyNotes\\Controllers\\NotesController.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAAQwBAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-04T04:02:42.016Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "WhenOpened": "2025-08-04T04:02:42.016Z"
             },
             {
               "$type": "Document",
@@ -204,6 +196,10 @@
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-04T04:02:30.247Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             }
           ]
         },

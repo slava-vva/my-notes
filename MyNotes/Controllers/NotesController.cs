@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyNotes.Models;
 
@@ -18,32 +13,13 @@ namespace MyNotes.Controllers
             _context = context;
         }
 
-        // GET: NoteModels
-        public async Task<IActionResult> Index()
+        // GET: Notes
+        public IActionResult Index()
         {
-            var model = new NotesModel(_context);
-            model.GetNotes();
-            return View("List", model);
+            return RedirectToAction(nameof(List));
         }
 
-        // GET: NoteModels/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var noteModel = await _context.Notes
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (noteModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(noteModel);
-        }
-
+        // GET: Notes/List
         public IActionResult List()
         {
             var model = new NotesModel(_context);
@@ -51,65 +27,69 @@ namespace MyNotes.Controllers
             return View(model);
         }
 
-        // GET: NoteModels/Create
-        public IActionResult Create()
+        // GET: Notes/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            var model = new Note
+            if (id == null)
             {
-                CreatedDate = DateTime.Now,
+                return NotFound();
+            }
 
-            };
-            return View(model);
+            var note = await _context.Notes.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+            if (note == null)
+            {
+                return NotFound();
+            }
+
+            return View(note);
         }
 
+        // POST: Notes/Search  (live search and "Show more"; returns the results partial)
         [HttpPost]
-	// Extended search
-        public IActionResult Search(string searchTerm)
+        public IActionResult Search(string? searchTerm, int skip = 0)
         {
             var model = new NotesModel(_context);
-            List<Note> results;
-            if (!string.IsNullOrEmpty(searchTerm))
-            {
-                results = model.SearchNotes(searchTerm);
-            }
-            else
-            {
-                results = model.GetNotes();
-            }
-            return PartialView("_SearchResults", results);
+            model.SearchNotes(searchTerm, skip);
+            return PartialView("_SearchResults", model);
         }
 
-        public async Task<IActionResult> Search1(string searchTerm) { 
+        public IActionResult Search1(string? searchTerm)
+        {
             var model = new NotesModel(_context);
-            if (!string.IsNullOrEmpty(searchTerm))
-            {
-                model.SearchNotes(searchTerm);
-            }
-            else
-            {
-                model.GetNotes();
-            }
+            model.SearchNotes(searchTerm);
             return View("List", model);
         }
 
+        // GET: Notes/Create
+        public IActionResult Create()
+        {
+            return View(new Note());
+        }
 
-        // POST: NoteModels/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Notes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,links,Tags,CreatedDate,UpdatedDate")] Note noteModel)
+        public async Task<IActionResult> Create([Bind("Name,Description,links,Tags")] Note note)
         {
-            if (ModelState.IsValid)
+            RequireName(note);
+            if (!ModelState.IsValid)
             {
-                _context.Add(noteModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(List));
+                // Show the form again with the user's input and the validation messages.
+                var model = new NotesModel(_context) { InputNote = note };
+                model.GetNotes();
+                return View("List", model);
             }
+
+            note.CreatedDate = DateTime.Now;
+            note.UpdatedDate = note.CreatedDate;
+            _context.Add(note);
+            await _context.SaveChangesAsync();
+
+            TempData["Message"] = $"Note \"{note.Name}\" created.";
             return RedirectToAction(nameof(List));
         }
 
-        // GET: NoteModels/Edit/5
+        // GET: Notes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -117,54 +97,52 @@ namespace MyNotes.Controllers
                 return NotFound();
             }
 
-            var noteModel = await _context.Notes.FindAsync(id);
-            if (noteModel == null)
+            var note = await _context.Notes.FindAsync(id);
+            if (note == null)
             {
                 return NotFound();
             }
-            return View(noteModel);
+            return View(note);
         }
 
-        // POST: NoteModels/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Notes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,links,Tags,CreatedDate,UpdatedDate")] Note noteModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,links,Tags")] Note input)
         {
-            if (id != noteModel.Id)
+            if (id != input.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            var note = await _context.Notes.FindAsync(id);
+            if (note == null)
             {
-                try
-                {
-                    _context.Update(noteModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!NoteModelExists(noteModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-
-                var model = new NotesModel(_context);
-                model.GetNotes();
-
-                return View("List", model);
+                return NotFound();
             }
-            return View(noteModel);
+
+            RequireName(input);
+            if (!ModelState.IsValid)
+            {
+                // Keep the stored dates for display, show the user's edits.
+                input.CreatedDate = note.CreatedDate;
+                input.UpdatedDate = note.UpdatedDate;
+                return View(input);
+            }
+
+            note.Name = input.Name;
+            note.Description = input.Description;
+            note.links = input.links;
+            note.Tags = input.Tags;
+            note.UpdatedDate = DateTime.Now;   // CreatedDate is never changed by an edit
+
+            await _context.SaveChangesAsync();
+
+            TempData["Message"] = $"Note \"{note.Name}\" saved.";
+            return RedirectToAction(nameof(List));
         }
 
-        // GET: NoteModels/Delete/5
+        // GET: Notes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -172,38 +150,38 @@ namespace MyNotes.Controllers
                 return NotFound();
             }
 
-            var noteModel = await _context.Notes
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (noteModel == null)
+            var note = await _context.Notes.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+            if (note == null)
             {
                 return NotFound();
             }
 
-            return View(noteModel);
+            return View(note);
         }
 
-        // POST: NoteModels/Delete/5
+        // POST: Notes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var noteModel = await _context.Notes.FindAsync(id);
-            if (noteModel != null)
+            var note = await _context.Notes.FindAsync(id);
+            if (note != null)
             {
-                _context.Notes.Remove(noteModel);
+                _context.Notes.Remove(note);
+                await _context.SaveChangesAsync();
+                TempData["Message"] = $"Note \"{note.Name}\" deleted.";
             }
 
-            await _context.SaveChangesAsync();
-
-            var model = new NotesModel(_context);
-            model.GetNotes();
-
-            return View("list", model);
+            return RedirectToAction(nameof(List));
         }
 
-        private bool NoteModelExists(int id)
+        // Validated here rather than with [Required] on the entity, so the database schema stays unchanged.
+        private void RequireName(Note note)
         {
-            return _context.Notes.Any(e => e.Id == id);
+            if (string.IsNullOrWhiteSpace(note.Name))
+            {
+                ModelState.AddModelError(nameof(Note.Name), "Please enter a topic name.");
+            }
         }
     }
 }

@@ -3,7 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MyNotes</title>
+    <title>@(ViewData["Title"] is string title ? $"{title} - MyNotes" : "MyNotes")</title>
+    <script>
+        // Apply the saved (or system) colour theme before the page paints, to avoid a flash.
+        (function () {
+            var theme = null;
+            try { theme = localStorage.getItem('mynotes-theme'); } catch (e) { }
+            if (!theme) {
+                theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.setAttribute('data-bs-theme', theme);
+        })();
+    </script>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -11,38 +22,41 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                @* <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MyNotes</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button> *@
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+        <nav class="navbar bg-body-tertiary border-bottom mb-4">
+            <div class="container">
+                <div class="d-flex align-items-center gap-4">
+                    <a class="navbar-brand fw-semibold m-0" asp-area="" asp-controller="Notes" asp-action="List">MyNotes</a>
+                    <ul class="navbar-nav flex-row gap-3">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Notes" asp-action="List">Notes</a>
+                            <a class="nav-link" asp-area="" asp-controller="Notes" asp-action="List">Notes</a>
                         </li>
-                        @* <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li> *@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">About</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">About</a>
                         </li>
                     </ul>
                 </div>
+                <button type="button" id="themeToggle" class="btn btn-sm btn-outline-secondary" title="Switch light / dark theme" aria-label="Switch light / dark theme">
+                    <span class="theme-icon-dark">&#9790;</span><span class="theme-icon-light">&#9728;</span>
+                </button>
             </div>
         </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @if (TempData["Message"] is string message)
+            {
+                <div class="alert alert-success alert-dismissible fade show py-2 js-auto-dismiss" role="alert">
+                    @message
+                    <button type="button" class="btn-close py-2" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-body-secondary">
         <div class="container">
-            &copy; 2025 - MyNotes - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.Now.Year - MyNotes - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,53 +1,144 @@
-﻿@using System.Text.RegularExpressions
-@model List<Note>
+﻿@using System.Net
+@using System.Text
+@using System.Text.RegularExpressions
+@using Microsoft.AspNetCore.Html
+@model NotesModel
+@{
+    var terms = NotesModel.SplitTerms(Model.SearchTerm);
+    var isSearch = terms.Length > 0;
+    var firstPage = Model.Skip == 0;   // "Show more" requests only return the next cards
+}
 
-@if (Model.Any())
+@if (firstPage)
 {
-    <div>
+    <div class="d-flex justify-content-between align-items-baseline mb-2 small text-body-secondary">
+        <span>
+            @if (isSearch)
+            {
+                @(Model.TotalCount == 1 ? "1 note found" : $"{Model.TotalCount} notes found")
+            }
+            else
+            {
+                @(Model.TotalCount == 1 ? "1 note" : $"{Model.TotalCount} notes")
+            }
+        </span>
+    </div>
 
-        @foreach (var note in Model)
-        {
-            <div class="row">
-                
-                <h4>@note.Name <small class="my-col-footer"><a asp-action="Edit" asp-route-id="@note.Id">Edit</a></small></h4>
-                <pre>@note.Description</pre><br />
-                @if (note.links != null && note.links.Length > 0)
-                {
-                    <div class="mb-3">
-                        @Html.Raw(
-                        Regex.Replace(
-                        note.links!.Replace("\n", "<br />"),
-                        @"(http[s]?://[^\s<>]+)",
-                        "<a href=\"$1\" target=\"_blank\">$1</a>"
-                        ))
-                    </div>
-                }
-                else
-                {
-                    <div class="mb-3">
-                        <strong>No links available</strong>
-                    </div>
-                }
+    if (Model.TotalCount == 0)
+    {
+        <div class="text-center text-body-secondary py-5">
+            @(isSearch ? "No notes match your search." : "No notes yet. Create your first one on the left.")
+        </div>
+    }
+}
 
-                <div class="col-1 my-col-footer">
-                    <a asp-action="Edit" asp-route-id="@note.Id">Edit</a>
+@foreach (var note in Model.Notes)
+{
+    var tags = SplitTags(note.Tags);
+    var edited = (note.UpdatedDate - note.CreatedDate).TotalMinutes >= 1;
+
+    <article class="card note-card shadow-sm mb-3">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start gap-2">
+                <h4 class="card-title mb-0">
+                    <a class="link-body-emphasis text-decoration-none" asp-action="Edit" asp-route-id="@note.Id">@Highlight(note.Name, terms)</a>
+                </h4>
+                <div class="btn-group btn-group-sm flex-shrink-0">
+                    <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@note.Id">Edit</a>
+                    <a class="btn btn-outline-danger" asp-action="Delete" asp-route-id="@note.Id">Delete</a>
                 </div>
-                <div class="col-1 my-col-footer">
-                    <a asp-action="Delete" asp-route-id="@note.Id">Delete</a>
-                </div>
-                <div class="col-4 my-col-footer">
-                    @note.CreatedDate.ToString("dd-MM-yyyy HH:mm:ss")
-                </div>
-                <div class="col-4 my-col-footer">
-                    @note.UpdatedDate.ToString("dd-MM-yyyy HH:mm:ss")
-                </div>
-                <hr />
             </div>
-        }
 
+            @if (!string.IsNullOrWhiteSpace(note.Description))
+            {
+                <pre class="note-description">@Highlight(note.Description, terms)</pre>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(note.links))
+            {
+                <div class="note-links">@Linkify(note.links)</div>
+            }
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-3">
+                <div class="d-flex flex-wrap gap-1">
+                    @foreach (var tag in tags)
+                    {
+                        <a href="#" class="badge rounded-pill text-bg-secondary note-tag" data-tag="@tag" title="Show notes with &quot;@tag&quot;">#@tag</a>
+                    }
+                </div>
+                <span class="note-meta text-body-secondary">
+                    Created @note.CreatedDate.ToString("dd-MM-yyyy HH:mm")
+                    @if (edited)
+                    {
+                        <text>&middot; Updated @note.UpdatedDate.ToString("dd-MM-yyyy HH:mm")</text>
+                    }
+                </span>
+            </div>
+        </div>
+    </article>
+}
+
+@if (Model.HasMore)
+{
+    <div class="text-center my-3 js-show-more-wrap">
+        <button type="button" class="btn btn-outline-secondary js-show-more"
+                data-skip="@(Model.Skip + Model.Notes.Count)" data-term="@Model.SearchTerm">
+            Show more (@Model.Remaining more)
+        </button>
     </div>
 }
-else
-{
-    <p>No results found.</p>
+
+@functions {
+    private static readonly Regex UrlRegex = new(@"https?://[^\s<>""]+", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+
+    private static string Encode(string text) => WebUtility.HtmlEncode(text);
+
+    // HTML-encodes the text and wraps every search word in <mark>.
+    private static IHtmlContent Highlight(string? text, string[] terms)
+    {
+        if (string.IsNullOrEmpty(text)) return HtmlString.Empty;
+        if (terms.Length == 0) return new HtmlString(Encode(text));
+
+        var pattern = string.Join("|", terms.Select(Regex.Escape));
+        var sb = new StringBuilder();
+        var last = 0;
+        foreach (Match m in Regex.Matches(text, pattern, RegexOptions.IgnoreCase))
+        {
+            sb.Append(Encode(text[last..m.Index]));
+            sb.Append("<mark>").Append(Encode(m.Value)).Append("</mark>");
+            last = m.Index + m.Length;
+        }
+        sb.Append(Encode(text[last..]));
+        return new HtmlString(sb.ToString());
+    }
+
+    // HTML-encodes the text, keeps line breaks and turns http(s) URLs into links.
+    // Encoding first means anything typed into Links can never run as HTML or script.
+    private static IHtmlContent Linkify(string text)
+    {
+        var sb = new StringBuilder();
+        var lines = text.Replace("\r\n", "\n").Split('\n');
+        for (var i = 0; i < lines.Length; i++)
+        {
+            if (i > 0) sb.Append("<br />");
+            var line = lines[i];
+            var last = 0;
+            foreach (Match m in UrlRegex.Matches(line))
+            {
+                sb.Append(Encode(line[last..m.Index]));
+                var url = Encode(m.Value);
+                sb.Append($"<a href=\"{url}\" target=\"_blank\" rel=\"noopener noreferrer\">{url}</a>");
+                last = m.Index + m.Length;
+            }
+            sb.Append(Encode(line[last..]));
+        }
+        return new HtmlString(sb.ToString());
+    }
+
+    private static string[] SplitTags(string? tags) =>
+        string.IsNullOrWhiteSpace(tags)
+            ? Array.Empty<string>()
+            : tags.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                  .Distinct(StringComparer.OrdinalIgnoreCase)
+                  .ToArray();
 }

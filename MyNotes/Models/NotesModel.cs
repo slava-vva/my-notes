@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using System.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyNotes.Models
 {
@@ -15,18 +14,26 @@ namespace MyNotes.Models
         [BindProperty]
         public Note? InputNote { get; set; }
 
-        public List<Note>? Notes { get; set; }
+        public List<Note> Notes { get; set; } = new();
 
         public string? SearchTerm { get; set; }
         public string? SortBy { get; set; }
         public string? SortDirection { get; set; }
         public int PageNumber { get; set; } = 1;
-        public int PageSize { get; set; } = 10;
+        public int PageSize { get; set; } = DefaultPageSize;
         public int TotalCount { get; set; }
+
+        /// <summary>Number of notes shown per "page" before the "Show more" button.</summary>
+        public const int DefaultPageSize = 20;
+
+        /// <summary>How many notes were skipped before the current page.</summary>
+        public int Skip { get; set; }
+
+        public bool HasMore => Skip + Notes.Count < TotalCount;
+        public int Remaining => Math.Max(0, TotalCount - Skip - Notes.Count);
 
         public void AddNote(Note note)
         {
-
             context.Notes.Add(note);
             context.SaveChanges();
         }
@@ -37,56 +44,58 @@ namespace MyNotes.Models
             context.SaveChanges();
         }
 
-        public List<Note> GetNotes()
+        public List<Note> GetNotes(int skip = 0)
         {
-            return Notes = context.Notes.OrderByDescending(n => n.CreatedDate).Take(30).ToList();
-        }
-        public List<Note> SearchNotes(string searchText)
-        {
-            if (string.IsNullOrEmpty(searchText))
-            {
-                return GetNotes();
-            }
-
-            List<Note> res = new List<Note>();
-
-            string normalizedTerm = searchText.ToLowerInvariant();
-            string[] searchTerms = searchText.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            if (searchTerms.Length > 0)
-            {
-                normalizedTerm = searchTerms[0].ToLowerInvariant();
-                res = context.Notes.Where(n => (n.Name != null && n.Name.Contains(normalizedTerm))
-                || (n.Description != null && n.Description.Contains(normalizedTerm))
-                || (n.links != null && n.links.Contains(normalizedTerm))
-                || (n.Tags != null && n.Tags.Contains(normalizedTerm))).ToList();
-            }
-            
-            if (searchTerms.Length > 1 && res.Count > 0)
-            {
-                foreach (var term in searchTerms)
-                {
-                    if (string.IsNullOrEmpty(term)) continue;
-                    // Normalize the term to lower case for case-insensitive search
-                    normalizedTerm = term.ToLowerInvariant();
-                    // Filter notes based on the normalized term
-                    res = res.Where(n => (n.Name != null && n.Name.ToLowerInvariant().Contains(normalizedTerm))
-                        || (n.Description != null && n.Description.ToLowerInvariant().Contains(normalizedTerm))
-                        || (n.links != null && n.links.ToLowerInvariant().Contains(normalizedTerm))
-                        || (n.Tags != null && n.Tags.ToLowerInvariant().Contains(normalizedTerm))
-                        ).ToList();
-
-                }
-            }
-
-            //res = context.Notes.Where(n => (n.Name != null && n.Name.Contains(searchText)) 
-            //|| (n.Description != null && n.Description.Contains(searchText))
-            //|| (n.Tags != null && n.Tags.Contains(searchText))
-            //).ToList();
-
-            TotalCount = res.Count;
-
-            return Notes = res;
+            Skip = Math.Max(0, skip);
+            TotalCount = context.Notes.Count();
+            Notes = context.Notes
+                .AsNoTracking()
+                .OrderByDescending(n => n.CreatedDate)
+                .ThenByDescending(n => n.Id)
+                .Skip(Skip)
+                .Take(PageSize)
+                .ToList();
+            return Notes;
         }
 
+        /// <summary>
+        /// Every word must appear (case-insensitive) in the topic, description, links or tags.
+        /// Filtering is done in memory so that case-insensitivity also works for non-Latin text
+        /// (SQLite's LIKE/lower() only fold ASCII letters). Fine for a personal notes database.
+        /// </summary>
+        public List<Note> SearchNotes(string? searchText, int skip = 0)
+        {
+            SearchTerm = searchText;
+            var terms = SplitTerms(searchText);
+            if (terms.Length == 0)
+            {
+                return GetNotes(skip);
+            }
+
+            var matches = context.Notes
+                .AsNoTracking()
+                .AsEnumerable()
+                .Where(n => terms.All(t => Matches(n, t)))
+                .OrderByDescending(n => n.UpdatedDate)
+                .ThenByDescending(n => n.Id)
+                .ToList();
+
+            Skip = Math.Max(0, skip);
+            TotalCount = matches.Count;
+            Notes = matches.Skip(Skip).Take(PageSize).ToList();
+            return Notes;
+        }
+
+        public static string[] SplitTerms(string? searchText) =>
+            string.IsNullOrWhiteSpace(searchText)
+                ? Array.Empty<string>()
+                : searchText.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+        private static bool Matches(Note n, string term) =>
+            Contains(n.Name, term) || Contains(n.Description, term) ||
+            Contains(n.links, term) || Contains(n.Tags, term);
+
+        private static bool Contains(string? field, string term) =>
+            field != null && field.Contains(term, StringComparison.OrdinalIgnoreCase);
     }
 }

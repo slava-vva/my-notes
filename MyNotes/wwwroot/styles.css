@@ -1,35 +1,84 @@
-﻿body {
+﻿/* ---------- Forms ---------- */
+textarea.form-control {
+    resize: vertical;
 }
 
 .my-text-desription {
-    height: 163px;
-    resize: both; /* можно тянуть во все стороны */
-    overflow: auto;
-    background-color: #fff;
-    position: relative;
-    z-index: 1000;
-}
-
-.my-text-desription-edit {
-    width: 60rem;
+    min-height: 163px;
 }
 
 .my-text-links {
-    height: 100px;
-    resize: both; /* можно тянуть во все стороны */
-    overflow: auto;
-    background-color: #fff;
-    position: relative;
-}
-
-.my-text-links-edit {
-    width: 60rem;
-}
-
-.my-col-res {
-    margin-left: 4rem;
+    min-height: 100px;
 }
 
 .my-col-footer {
     font-size: 12px;
+}
+
+/* New-note panel stays visible while scrolling the list on wide screens */
+@media (min-width: 992px) {
+    .notes-sticky {
+        position: sticky;
+        top: 1rem;
+    }
+}
+
+/* ---------- Search ---------- */
+#searchResults {
+    transition: opacity .15s ease-in-out;
+}
+
+#searchResults.is-loading {
+    opacity: .5;
+}
+
+mark {
+    padding: 0 .1em;
+    border-radius: .2em;
+}
+
+/* ---------- Note cards ---------- */
+.note-card {
+    border-color: var(--bs-border-color-translucent);
+}
+
+.note-card .card-title {
+    word-break: break-word;
+}
+
+.note-description {
+    white-space: pre-wrap;
+    word-break: break-word;
+    background: var(--bs-tertiary-bg);
+    border-radius: var(--bs-border-radius);
+    padding: .75rem;
+    margin-top: .75rem;
+    margin-bottom: 0;
+    max-height: 24rem;
+    overflow: auto;
+}
+
+.note-links {
+    word-break: break-all;
+    margin-top: .75rem;
+}
+
+.note-tag {
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.note-tag:hover {
+    filter: brightness(1.15);
+}
+
+.note-meta {
+    font-size: 12px;
+}
+
+/* ---------- Theme toggle icon ---------- */
+[data-bs-theme="dark"] .theme-icon-dark,
+[data-bs-theme="light"] .theme-icon-light {
+    display: none;
 }
