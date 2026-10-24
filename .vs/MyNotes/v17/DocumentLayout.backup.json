@@ -3,6 +3,38 @@
   "WorkspaceRootPath": "C:\\Projects\\MyNotes\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|c:\\projects\\mynotes\\mynotes\\wwwroot\\styles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|solutionrelative:mynotes\\wwwroot\\styles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|c:\\projects\\mynotes\\mynotes\\views\\notes\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|solutionrelative:mynotes\\views\\notes\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|c:\\projects\\mynotes\\mynotes\\controllers\\notescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|solutionrelative:mynotes\\controllers\\notescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|c:\\projects\\mynotes\\mynotes\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|solutionrelative:mynotes\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|c:\\projects\\mynotes\\mynotes\\models\\notesmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|solutionrelative:mynotes\\models\\notesmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|c:\\projects\\mynotes\\mynotes\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|solutionrelative:mynotes\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|c:\\projects\\mynotes\\mynotes\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|solutionrelative:mynotes\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|c:\\projects\\mynotes\\mynotes\\models\\note_ext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|solutionrelative:mynotes\\models\\note_ext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|c:\\projects\\mynotes\\mynotes\\views\\notes\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|solutionrelative:mynotes\\views\\notes\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -13,14 +45,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|c:\\projects\\mynotes\\mynotes\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|solutionrelative:mynotes\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|c:\\projects\\mynotes\\mynotes\\controllers\\notescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|solutionrelative:mynotes\\controllers\\notescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|c:\\projects\\mynotes\\mynotes\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{866676EC-802B-464F-82C9-B2851A5B6BA1}|MyNotes\\MyNotes.csproj|solutionrelative:mynotes\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,15 +54,112 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Projects\\MyNotes\\MyNotes\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "MyNotes\\wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Projects\\MyNotes\\MyNotes\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "MyNotes\\wwwroot\\css\\site.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-10-21T00:27:36.116Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "styles.css",
+              "DocumentMoniker": "C:\\Projects\\MyNotes\\MyNotes\\wwwroot\\styles.css",
+              "RelativeDocumentMoniker": "MyNotes\\wwwroot\\styles.css",
+              "ToolTip": "C:\\Projects\\MyNotes\\MyNotes\\wwwroot\\styles.css",
+              "RelativeToolTip": "MyNotes\\wwwroot\\styles.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-10-21T00:21:28.875Z",
+              "EditorCaption": ""
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Projects\\MyNotes\\MyNotes\\Views\\Notes\\Edit.cshtml",
+              "RelativeDocumentMoniker": "MyNotes\\Views\\Notes\\Edit.cshtml",
+              "ToolTip": "C:\\Projects\\MyNotes\\MyNotes\\Views\\Notes\\Edit.cshtml",
+              "RelativeToolTip": "MyNotes\\Views\\Notes\\Edit.cshtml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACIAAABvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-21T00:20:07.032Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "NotesModel.cs",
+              "DocumentMoniker": "C:\\Projects\\MyNotes\\MyNotes\\Models\\NotesModel.cs",
+              "RelativeDocumentMoniker": "MyNotes\\Models\\NotesModel.cs",
+              "ToolTip": "C:\\Projects\\MyNotes\\MyNotes\\Models\\NotesModel.cs",
+              "RelativeToolTip": "MyNotes\\Models\\NotesModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-20T23:47:43.39Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Projects\\MyNotes\\MyNotes\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "MyNotes\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Projects\\MyNotes\\MyNotes\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "MyNotes\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-20T23:47:25.052Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "NotesController.cs",
+              "DocumentMoniker": "C:\\Projects\\MyNotes\\MyNotes\\Controllers\\NotesController.cs",
+              "RelativeDocumentMoniker": "MyNotes\\Controllers\\NotesController.cs",
+              "ToolTip": "C:\\Projects\\MyNotes\\MyNotes\\Controllers\\NotesController.cs",
+              "RelativeToolTip": "MyNotes\\Controllers\\NotesController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwBAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-04T04:02:42.016Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Note_ext.cs",
+              "DocumentMoniker": "C:\\Projects\\MyNotes\\MyNotes\\Models\\Note_ext.cs",
+              "RelativeDocumentMoniker": "MyNotes\\Models\\Note_ext.cs",
+              "ToolTip": "C:\\Projects\\MyNotes\\MyNotes\\Models\\Note_ext.cs",
+              "RelativeToolTip": "MyNotes\\Models\\Note_ext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-16T22:32:59.521Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "_SearchResults.cshtml",
               "DocumentMoniker": "C:\\Projects\\MyNotes\\MyNotes\\Views\\Notes\\_SearchResults.cshtml",
               "RelativeDocumentMoniker": "MyNotes\\Views\\Notes\\_SearchResults.cshtml",
@@ -46,25 +167,23 @@
               "RelativeToolTip": "MyNotes\\Views\\Notes\\_SearchResults.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-04T08:07:31.419Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-04T08:07:31.419Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 8,
               "Title": "List.cshtml",
               "DocumentMoniker": "C:\\Projects\\MyNotes\\MyNotes\\Views\\Notes\\List.cshtml",
               "RelativeDocumentMoniker": "MyNotes\\Views\\Notes\\List.cshtml",
               "ToolTip": "C:\\Projects\\MyNotes\\MyNotes\\Views\\Notes\\List.cshtml",
               "RelativeToolTip": "MyNotes\\Views\\Notes\\List.cshtml",
-              "ViewState": "AgIAABkAAAAAAAAAAAAtwCMAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAHkAAAAAAAAAAAAtwFUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-04T08:00:21.839Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-04T08:00:21.839Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Projects\\MyNotes\\MyNotes\\Program.cs",
               "RelativeDocumentMoniker": "MyNotes\\Program.cs",
@@ -72,31 +191,17 @@
               "RelativeToolTip": "MyNotes\\Program.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAAAB8AAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-04T07:26:02.951Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-04T07:26:02.951Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "NotesController.cs",
-              "DocumentMoniker": "C:\\Projects\\MyNotes\\MyNotes\\Controllers\\NotesController.cs",
-              "RelativeDocumentMoniker": "MyNotes\\Controllers\\NotesController.cs",
-              "ToolTip": "C:\\Projects\\MyNotes\\MyNotes\\Controllers\\NotesController.cs",
-              "RelativeToolTip": "MyNotes\\Controllers\\NotesController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-04T04:02:42.016Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Projects\\MyNotes\\MyNotes\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "MyNotes\\Controllers\\HomeController.cs",
               "ToolTip": "C:\\Projects\\MyNotes\\MyNotes\\Controllers\\HomeController.cs",
               "RelativeToolTip": "MyNotes\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-04T04:02:30.247Z"
             }
@@ -106,6 +211,10 @@
           "DockedWidth": 200,
           "SelectedChildIndex": -1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"

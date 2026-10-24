@@ -39,7 +39,7 @@ namespace MyNotes.Models
 
         public List<Note> GetNotes()
         {
-            return Notes = context.Notes.OrderByDescending(n => n.CreatedDate).Take(3).ToList();
+            return Notes = context.Notes.OrderByDescending(n => n.CreatedDate).Take(30).ToList();
         }
         public List<Note> SearchNotes(string searchText)
         {

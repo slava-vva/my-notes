@@ -3,10 +3,27 @@
 
 .my-text-desription {
     height: 163px;
+    resize: both; /* можно тянуть во все стороны */
+    overflow: auto;
+    background-color: #fff;
+    position: relative;
+    z-index: 1000;
+}
+
+.my-text-desription-edit {
+    width: 60rem;
 }
 
 .my-text-links {
     height: 100px;
+    resize: both; /* можно тянуть во все стороны */
+    overflow: auto;
+    background-color: #fff;
+    position: relative;
+}
+
+.my-text-links-edit {
+    width: 60rem;
 }
 
 .my-col-res {
